@@ -1,4 +1,4 @@
-import { ApiConfiguration, JWTClaimSet, JWTHeader } from "./config";
+import { ApiConfiguration, JWTClaimSet, JWTHeader } from "./config.js";
 import * as jose from "jose";
 import axios from "axios";
 
