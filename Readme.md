@@ -3,5 +3,5 @@
 ### 설치
 
 ```bash
-npm install @siwol-media/naverworks-api --registry=https://npm.pkg.github.com
+npm install @siwol-media/naverworks-api --registry=https://npm.pkg.github.com:_authToken=<YOUR_PERSONAL_ACCESS_TOKEN>
 ```
