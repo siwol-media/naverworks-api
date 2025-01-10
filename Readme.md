@@ -5,3 +5,8 @@
 ```bash
 npm install @siwol-media/naverworks-api
 ```
+
+.npmrc
+```javascript
+@siwol-media:registry=https://npm.pkg.github.com/
+```
