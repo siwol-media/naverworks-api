@@ -1,2 +1,2 @@
-export { WebClient } from "./WebClient.js";
-export { type ApiConfiguration } from "./config.js";
+export { WebClient } from "./WebClient";
+export { type ApiConfiguration } from "./config";
