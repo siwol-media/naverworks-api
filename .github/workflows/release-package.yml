@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   test:
+    if: startsWith(github.event.head_commit.message, 'chore(') == false || contains(github.event.head_commit.message, 'release') == false
     runs-on: ubuntu-latest
     env:
       NAVERWORKS_PRIVATE_KEY: ${{ secrets.NAVERWORKS_PRIVATE_KEY }}
