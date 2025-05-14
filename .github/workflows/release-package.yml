@@ -1,24 +1,56 @@
-name: Node.js Package
+name: Release Package
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+
 jobs:
-  publish-gpr:
+  test:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10.9.0
+      - run: pnpm install
+      - run: pnpm run test:unit
+      - run: pnpm run test:e2e
+
+  release-please:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: .release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish:
+    needs: [test, release-please]
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.release_published == 'true' || github.event_name == 'workflow_dispatch' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10.9.0
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

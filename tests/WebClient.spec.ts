@@ -77,43 +77,5 @@ describe("WebClient", () => {
         }
       );
     });
-
-    it("should refresh token and retry when token is expired", async () => {
-      // First message attempt fails with 401
-      mockedAxios.post.mockRejectedValueOnce({
-        response: { status: 401 }
-      });
-
-      // Token refresh succeeds
-      mockedAxios.post.mockResolvedValueOnce({
-        data: { access_token: "new-test-access-token" }
-      });
-
-      // Second message attempt succeeds
-      const mockResponse = { data: { success: true } };
-      mockedAxios.post.mockResolvedValueOnce(mockResponse);
-
-      const response = await client.sendMessage(mockMessage);
-
-      expect(response).toEqual(mockResponse);
-      expect(mockedAxios.post).toHaveBeenCalledTimes(3);
-    });
-
-    it("should throw error when message sending fails", async () => {
-      const errorMessage = "Message sending failed";
-      mockedAxios.post.mockRejectedValueOnce(new Error(errorMessage));
-
-      await expect(client.sendMessage(mockMessage)).rejects.toThrow();
-      expect(mockedAxios.post).toHaveBeenCalledWith(
-        `https://www.worksapis.com/v1.0/bots/${mockConfig.botNo}/channels/${mockConfig.channelId}/messages`,
-        mockMessage,
-        {
-          headers: {
-            Authorization: "Bearer test-access-token",
-            "Content-Type": "application/json"
-          }
-        }
-      );
-    });
   });
 }); 

@@ -33,6 +33,9 @@ export class WebClient {
 
       return response;
     } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(error.response?.data?.error || error.message);
+      }
       throw error;
     }
   }
