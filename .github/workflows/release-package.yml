@@ -42,21 +42,3 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           config-file: .release-please-config.json
           manifest-file: .release-please-manifest.json
-
-  publish:
-    needs: [test, release-please]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          registry-url: https://npm.pkg.github.com/
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 10.9.0
-      - run: pnpm install
-      - run: pnpm build
-      - run: pnpm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
