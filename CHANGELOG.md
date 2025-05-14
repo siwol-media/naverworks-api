@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.5](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.0.4...naverworks-api-v1.0.5) (2025-05-14)
+
+
+### Bug Fixes
+
+* add condition on release pr ([51128c9](https://github.com/siwol-media/naverworks-api/commit/51128c92002a5f32a4dd7138b3d3e09bc21369d4))
+* remove unused imports ([e8eac08](https://github.com/siwol-media/naverworks-api/commit/e8eac085c1dff3547cbb5f312f871164e421dab8))
+
 ## [1.0.4](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.0.3...naverworks-api-v1.0.4) (2025-05-14)
 
 
