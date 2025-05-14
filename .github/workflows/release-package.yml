@@ -14,6 +14,13 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      NAVERWORKS_PRIVATE_KEY: ${{ secrets.NAVERWORKS_PRIVATE_KEY }}
+      NAVERWORKS_CLIENT_ID: ${{ secrets.NAVERWORKS_CLIENT_ID }}
+      NAVERWORKS_CLIENT_SECRET: ${{ secrets.NAVERWORKS_CLIENT_SECRET }}
+      NAVERWORKS_CHANNEL_ID: ${{ secrets.NAVERWORKS_CHANNEL_ID }}
+      NAVERWORKS_SERVICE_ACCOUNT: ${{ secrets.NAVERWORKS_SERVICE_ACCOUNT }}
+      NAVERWORKS_BOT_NO: ${{ secrets.NAVERWORKS_BOT_NO }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
