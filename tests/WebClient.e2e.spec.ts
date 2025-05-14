@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll } from "vitest";
 import { WebClient } from "../src/WebClient";
 import { ApiConfiguration } from "../src/config";
 import "dotenv/config";
+import { AxiosError } from "axios";
 
 describe("WebClient E2E", () => {
   let client: WebClient;

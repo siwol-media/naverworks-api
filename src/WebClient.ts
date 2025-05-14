@@ -3,6 +3,11 @@ import * as jose from "jose";
 import axios, { AxiosError } from "axios";
 import { Message } from "./messageType";
 
+type ErrorResponse = {
+  code: string;
+  description: string;
+}
+
 export class WebClient {
   private config: ApiConfiguration;
   private accessToken: string;
@@ -34,8 +39,11 @@ export class WebClient {
       return response;
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw new Error(error.response?.data?.error || error.message);
+        const data = error.response?.data as ErrorResponse;
+
+        throw new Error(`${data.code}: ${data.description}`);
       }
+
       throw error;
     }
   }
