@@ -1,6 +1,7 @@
 import { ApiConfiguration, JWTClaimSet, JWTHeader } from "./config";
 import * as jose from "jose";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { Message } from "./messageType";
 
 export class WebClient {
   private config: ApiConfiguration;
@@ -20,12 +21,20 @@ export class WebClient {
     return this.accessToken;
   }
 
-  public async sendMessage(message: any) {
-    await this.ensureAccessToken();
-    const config = this.config;
-    const response = await axios.post(`https://www.worksapis.com/v1.0/bots/${config.botNo}/channels/${config.channelId}/messages`, message, { headers: { Authorization: `Bearer ${this.accessToken}`, "Content-Type": "application/json" } });
+  public async sendMessage(message: Message) {
+    try {
+      await this.ensureAccessToken();
+      const config = this.config;
+      const response = await axios.post(`https://www.worksapis.com/v1.0/bots/${config.botNo}/channels/${config.channelId}/messages`, message, { headers: { Authorization: `Bearer ${this.accessToken}`, "Content-Type": "application/json" } });
 
-    return response;
+      if (response.status >= 400) {
+        throw new Error(`Failed to send message: ${response.statusText}`);
+      }
+
+      return response;
+    } catch (error) {
+      throw error;
+    }
   }
 
   private createClaimSet(config: ApiConfiguration) {
