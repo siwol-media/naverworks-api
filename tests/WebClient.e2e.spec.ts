@@ -1,23 +1,26 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { WebClient } from "../src/WebClient";
-import { ApiConfiguration } from "../src/config";
 import "dotenv/config";
-import { AxiosError } from "axios";
+import { ClientConfiguration, ProviderConfiguration } from "../src/types";
+import { DirectTokenProvider } from "../src/providers/direct";
 
 describe("WebClient E2E", () => {
   let client: WebClient;
-  const config: ApiConfiguration = {
+  const config: ClientConfiguration = {
+    botNo: parseInt(process.env.NAVERWORKS_BOT_NO!),
+    channelId: process.env.NAVERWORKS_CHANNEL_ID!,
+  };
+
+  const providerConfig: ProviderConfiguration = {
     clientId: process.env.NAVERWORKS_CLIENT_ID!,
     clientSecret: process.env.NAVERWORKS_CLIENT_SECRET!,
     serviceAccount: process.env.NAVERWORKS_SERVICE_ACCOUNT!,
-    botNo: parseInt(process.env.NAVERWORKS_BOT_NO!),
-    channelId: process.env.NAVERWORKS_CHANNEL_ID!,
     privateKey: process.env.NAVERWORKS_PRIVATE_KEY!
   };
 
   beforeAll(async () => {
-    client = new WebClient(config);
-    await client.initialize();
+    const provider = new DirectTokenProvider(providerConfig);
+    client = new WebClient(config, provider);
   });
 
   describe("sendMessage", () => {

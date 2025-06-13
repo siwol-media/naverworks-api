@@ -1,2 +1,2 @@
 export { WebClient } from "./WebClient";
-export { type ApiConfiguration } from "./config";
+export { type ClientConfiguration, type ProviderConfiguration } from "./types/config";

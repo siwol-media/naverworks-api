@@ -16,11 +16,19 @@ export interface JWTClaimSet extends JWTPayload {
   exp: number;
 }
 
-export interface ApiConfiguration {
+export interface ProviderConfiguration {
   clientId: string;
   clientSecret: string;
   serviceAccount: string;
-  botNo: number;
-  channelId: string;
   privateKey: string;
 }
+
+export interface RedisProviderConfiguration extends ProviderConfiguration {
+  redisUrl: string;
+}
+
+export interface ClientConfiguration {
+  botNo: number;
+  channelId: string;
+}
+
