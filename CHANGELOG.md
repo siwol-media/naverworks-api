@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.1.0...naverworks-api-v1.1.1) (2025-06-16)
+
+
+### Bug Fixes
+
+* clean up exports ([a3bc36c](https://github.com/siwol-media/naverworks-api/commit/a3bc36ce18e079bb788bd23a324f888976f4f6cf))
+
 ## [1.1.0](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.0.5...naverworks-api-v1.1.0) (2025-06-16)
 
 
