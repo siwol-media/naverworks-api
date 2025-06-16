@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.0.5...naverworks-api-v1.1.0) (2025-06-16)
+
+
+### Features
+
+* remove axios from package ([7da7427](https://github.com/siwol-media/naverworks-api/commit/7da742738382ac778265bd398559e9c10d62b70e))
+* seperate token management ([98e36fb](https://github.com/siwol-media/naverworks-api/commit/98e36fb89ef47d8549bf9cbf0ff325e00110f2a1))
+
 ## [1.0.5](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.0.4...naverworks-api-v1.0.5) (2025-05-14)
 
 
