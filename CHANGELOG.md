@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.1.1...naverworks-api-v1.1.2) (2025-06-16)
+
+
+### Bug Fixes
+
+* 번들러 provider모듈 분리되게 수정 ([7b84ad7](https://github.com/siwol-media/naverworks-api/commit/7b84ad75d8f97ddeb8758353e1793aaebf077cc8))
+
 ## [1.1.1](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.1.0...naverworks-api-v1.1.1) (2025-06-16)
 
 
