@@ -18,6 +18,8 @@ export class WebClient {
   
   /**
    * @param {ClientConfiguration} config - API 설정 정보
+   * @param {number} config.botNo - 봇 번호
+   * @param {string} [config.channelId] - 채널 ID
    * @param {AccessTokenProvider} tokenProvider - 액세스 토큰 제공자
    */
   constructor(private config: ClientConfiguration, private tokenProvider: AccessTokenProvider) { }
@@ -34,17 +36,21 @@ export class WebClient {
    *
    * @example
    * await client.sendMessage(message); // 기본 설정 사용
-   * await client.sendMessage(message, { channelId: 'xxx', botNo: 123 }); // 동적 전송
+   * await client.sendMessage(message, { channelId: 'xxx', botNo: 123 }); // 채널 및 봇 번호 오버라이드
    */
   public async sendMessage(message: Message, options?: {
     channelId?: string;
     botNo?: number;
   }) {
     try {
-      const accessToken = await this.tokenProvider.getToken();
-
       const channelId = options?.channelId ?? this.config.channelId;
       const botNo = options?.botNo ?? this.config.botNo;
+
+      if (!channelId) {
+        throw new WebClientError('채널 ID가 설정되지 않았습니다.', 'INVALID_CONFIGURATION', undefined);
+      }
+
+      const accessToken = await this.tokenProvider.getToken();
 
       const response = await fetch(`https://www.worksapis.com/v1.0/bots/${botNo}/channels/${channelId}/messages`, {
         method: 'POST',

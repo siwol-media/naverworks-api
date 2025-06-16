@@ -3,32 +3,35 @@ export interface Message {
   content: TextMessage | ImageMessage | FlexMessage;
 }
 
-interface TextMessage {
-  type: string; // "text";
+export interface TextMessage {
+  type: "text";
   text: string;
 }
 
-interface ImageMessage {
-  type: string; // "image";
+export interface ImageMessage {
+  type: "image";
   previewImageUrl?: string;
   originalContentUrl?: string;
   fileId?: string;
 }
 
-interface FlexMessage {
-  type: string; // "flex";
+/**
+ * @see https://developers.worksmobile.com/kr/docs/bot-send-flex
+ */
+export interface FlexMessage {
+  type: "flex";
   altText: string;
   contents: FlexContainer;
 }
 
-type FlexContainer = Carousel | Bubble;
+export type FlexContainer = Carousel | Bubble;
 
-interface Carousel {
+export interface Carousel {
   type: "carousel";
   contents: Bubble[];
 }
 
-interface Bubble {
+export interface Bubble {
   type: "bubble";
   size?: "nano" | "micro" | "kilo" | "mega" | "giga";
   header?: Box;
@@ -37,7 +40,7 @@ interface Bubble {
   styles?: object;
 }
 
-interface Box {
+export interface Box {
   type: "box";
   layout: "horizontal" | "vertical" | "baseline";
   contents: FlexComponent[];
@@ -48,9 +51,9 @@ interface Box {
   paddingAll?: string;
 }
 
-type FlexComponent = TextComponent | Box | IconComponent | ImageComponent | Spacer | ButtonComponent;
+export type FlexComponent = TextComponent | Box | IconComponent | ImageComponent | Spacer | ButtonComponent;
 
-interface TextComponent {
+export interface TextComponent {
   type: "text";
   text: string;
   size?: string;
@@ -63,14 +66,14 @@ interface TextComponent {
   action?: Action;
 }
 
-interface IconComponent {
+export interface IconComponent {
   type: "icon";
   url: string;
   size?: string;
   margin?: Spacing;
 }
 
-interface ImageComponent {
+export interface ImageComponent {
   type: "image";
   url: string;
   size?: string;
@@ -79,12 +82,12 @@ interface ImageComponent {
   margin?: Spacing;
 }
 
-interface Spacer {
+export interface Spacer {
   type: "spacer";
   size?: Spacing;
 }
 
-interface ButtonComponent {
+export interface ButtonComponent {
   type: "button";
   action: Action;
   style?: "link" | "primary" | "secondary";
@@ -93,7 +96,7 @@ interface ButtonComponent {
   margin?: Spacing;
 }
 
-interface Action {
+export interface Action {
   type: "uri" | "message" | "postback";
   label: string;
   uri?: string;
@@ -101,4 +104,4 @@ interface Action {
   data?: string;
 }
 
-type Spacing = "none" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "3xl" | "4xl" | "5xl";
+export type Spacing = "none" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "3xl" | "4xl" | "5xl";

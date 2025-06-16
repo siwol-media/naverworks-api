@@ -11,6 +11,6 @@ export interface RedisProviderConfiguration extends ProviderConfiguration {
 
 export interface ClientConfiguration {
   botNo: number;
-  channelId: string;
+  channelId?: string;
 }
 
