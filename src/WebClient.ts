@@ -1,7 +1,6 @@
 import { AccessTokenProvider } from "./providers";
-import { DirectTokenProvider } from "./providers/direct";
-import { ClientConfiguration, Message, ErrorResponse } from "./types";
-import axios, { AxiosError } from "axios";
+import { ClientConfiguration, ErrorResponse, Message } from "./types";
+import { WebClientError } from "./errors/WebClientError";
 
 /**
  * 네이버 웍스 API 클라이언트 구현체
@@ -47,21 +46,27 @@ export class WebClient {
       const channelId = options?.channelId ?? this.config.channelId;
       const botNo = options?.botNo ?? this.config.botNo;
 
-      const response = await axios.post(`https://www.worksapis.com/v1.0/bots/${botNo}/channels/${channelId}/messages`, message, { headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" } });
+      const response = await fetch(`https://www.worksapis.com/v1.0/bots/${botNo}/channels/${channelId}/messages`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(message)
+      });
 
-      if (response.status >= 400) {
-        throw new Error(`Failed to send message: ${response.statusText}`);
+      if (!response.ok) {
+        const errorData = await response.json() as ErrorResponse;
+        throw new WebClientError(errorData.description, errorData.code, response.status);
       }
 
       return response;
     } catch (error) {
-      if (error instanceof AxiosError) {
-        const data = error.response?.data as ErrorResponse;
-
-        throw new Error(`${data.code}: ${data.description}`);
+      if (error instanceof WebClientError) {
+        throw error;
       }
 
-      throw error;
+      throw new WebClientError('알 수 없는 오류가 발생했습니다.', 'UNKNOWN_ERROR', undefined, error);
     }
   }
 }

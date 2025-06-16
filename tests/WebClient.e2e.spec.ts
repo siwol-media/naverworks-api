@@ -3,6 +3,7 @@ import { WebClient } from "../src/WebClient";
 import "dotenv/config";
 import { ClientConfiguration, ProviderConfiguration } from "../src/types";
 import { DirectTokenProvider } from "../src/providers/direct";
+import { WebClientError } from "../src/errors/WebClientError";
 
 describe("WebClient E2E", () => {
   let client: WebClient;
@@ -37,7 +38,6 @@ describe("WebClient E2E", () => {
       // 2xx 상태 코드는 모두 성공으로 간주
       expect(response.status).toBeGreaterThanOrEqual(200);
       expect(response.status).toBeLessThan(300);
-      expect(response.data).toBeDefined();
     });
 
     it("should handle invalid message format", async () => {
@@ -48,7 +48,7 @@ describe("WebClient E2E", () => {
         }
       };
 
-      await expect(client.sendMessage(invalidMessage)).rejects.toThrow();
+      await expect(client.sendMessage(invalidMessage)).rejects.toThrow(WebClientError);
     });
   });
 }); 

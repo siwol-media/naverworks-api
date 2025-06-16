@@ -1,6 +1,5 @@
 import { JWTClaimSet, JWTHeader, ProviderConfiguration, TokenResponse } from "../types";
 import * as jose from "jose";
-import axios from "axios";
 
 const BUFFER_TIME = 30_000; // 30 s
 
@@ -47,13 +46,20 @@ export abstract class AbstractTokenProvider implements AccessTokenProvider {
       scope: "bot",
     });
 
-    const response = await axios.post("https://auth.worksmobile.com/oauth2/v2.0/token", params.toString(), {
+    const response = await fetch("https://auth.worksmobile.com/oauth2/v2.0/token", {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
+      body: params.toString()
     });
 
-    const { access_token, expires_in, refresh_token, scope, token_type } = response.data as TokenResponse;
+    if (!response.ok) {
+      throw new Error('Token request failed');
+    }
+
+    const data = await response.json();
+    const { access_token, expires_in, refresh_token, scope, token_type } = data as TokenResponse;
 
     const accessTokenExpiresAt = Date.now() + (expires_in * 1000) - BUFFER_TIME;
 

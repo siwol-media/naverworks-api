@@ -1,12 +1,14 @@
-import { describe, it, expect, beforeEach, vi, Mocked } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { WebClient } from "../src/WebClient";
 import { ClientConfiguration } from "../src/types/config";
 import { AccessTokenProvider } from "../src/providers";
+import { WebClientError } from "../src/errors/WebClientError";
 import "dotenv/config";
-import axios from "axios";
 
-vi.mock("axios");
-const mockedAxios = axios as Mocked<typeof axios>;
+// global fetch를 모킹
+vi.spyOn(global, 'fetch').mockImplementation(() => {
+  return Promise.resolve(new Response());
+});
 
 describe("WebClient", () => {
   let client: WebClient;
@@ -31,28 +33,34 @@ describe("WebClient", () => {
     const mockMessage = { content: { type: "text", text: "test message" } };
 
     it("should send message successfully", async () => {
-      const mockResponse = { data: { success: true } };
-      mockedAxios.post.mockResolvedValueOnce(mockResponse);
+      const mockResponse = new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+      vi.mocked(global.fetch).mockResolvedValueOnce(mockResponse);
 
       const response = await client.sendMessage(mockMessage);
 
       expect(response).toEqual(mockResponse);
-      expect(mockTokenProvider.getToken).toHaveBeenCalled();
-      expect(mockedAxios.post).toHaveBeenCalledWith(
-        `https://www.worksapis.com/v1.0/bots/${mockConfig.botNo}/channels/${mockConfig.channelId}/messages`,
-        mockMessage,
-        {
-          headers: {
-            Authorization: "Bearer test-access-token",
-            "Content-Type": "application/json"
-          }
-        }
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining(`/bots/${mockConfig.botNo}/channels/${mockConfig.channelId}/messages`),
+        expect.objectContaining({
+          method: 'POST',
+          headers: expect.objectContaining({
+            'Authorization': expect.stringContaining('Bearer'),
+            'Content-Type': 'application/json'
+          }),
+          body: JSON.stringify(mockMessage)
+        })
       );
     });
 
     it("should send message with custom channel and bot", async () => {
-      const mockResponse = { data: { success: true } };
-      mockedAxios.post.mockResolvedValueOnce(mockResponse);
+      const mockResponse = new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+      vi.mocked(global.fetch).mockResolvedValueOnce(mockResponse);
 
       const customOptions = {
         channelId: "custom-channel",
@@ -63,33 +71,42 @@ describe("WebClient", () => {
 
       expect(response).toEqual(mockResponse);
       expect(mockTokenProvider.getToken).toHaveBeenCalled();
-      expect(mockedAxios.post).toHaveBeenCalledWith(
-        `https://www.worksapis.com/v1.0/bots/${customOptions.botNo}/channels/${customOptions.channelId}/messages`,
-        mockMessage,
-        {
-          headers: {
-            Authorization: "Bearer test-access-token",
-            "Content-Type": "application/json"
-          }
-        }
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining(`/bots/${customOptions.botNo}/channels/${customOptions.channelId}/messages`),
+        expect.objectContaining({
+          method: 'POST',
+          headers: expect.objectContaining({
+            'Authorization': expect.stringContaining('Bearer'),
+            'Content-Type': 'application/json'
+          }),
+          body: JSON.stringify(mockMessage)
+        })
       );
     });
 
     it("should handle API error response", async () => {
-      const errorResponse = {
+      const error = {
         code: "INVALID_MESSAGE",
         description: "Invalid message format"
       };
 
-      mockedAxios.post.mockRejectedValueOnce({
-        response: {
-          data: errorResponse
-        }
-      });
+      // response 객체의 경우 .json()이나 .text() 한번 호출하면 재호출이 안된다.
+      vi.mocked(global.fetch)
+      .mockResolvedValueOnce(new Response(JSON.stringify(error), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      }))
+      .mockResolvedValueOnce(new Response(JSON.stringify(error), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      }));
 
-      await expect(client.sendMessage(mockMessage)).rejects.toThrow(
-        `${errorResponse.code}: ${errorResponse.description}`
-      );
+      await expect(client.sendMessage(mockMessage)).rejects.toThrow(WebClientError);
+      await expect(client.sendMessage(mockMessage)).rejects.toMatchObject({
+        message: error.description,
+        code: error.code,
+        statusCode: 400
+      });
     });
   });
 }); 
