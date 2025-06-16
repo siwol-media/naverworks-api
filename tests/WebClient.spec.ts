@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { WebClient } from "../src/WebClient";
 import { ClientConfiguration } from "../src/types/config";
-import { AccessTokenProvider } from "../src/providers";
+import { AccessTokenProvider } from "../src/providers/interface";
 import { WebClientError } from "../src/errors/WebClientError";
 import "dotenv/config";
 

@@ -15,7 +15,6 @@ interface ImageMessage {
   fileId?: string;
 }
 
-// flex box message
 interface FlexMessage {
   type: string; // "flex";
   altText: string;

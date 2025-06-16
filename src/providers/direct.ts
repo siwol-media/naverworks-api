@@ -1,5 +1,5 @@
 import { ProviderConfiguration } from "../types";
-import { AbstractTokenProvider } from ".";
+import { AbstractTokenProvider } from "./interface";
 
 /**
  * 메모리에서 토큰 상태를 관리하는 토큰 프로바이더

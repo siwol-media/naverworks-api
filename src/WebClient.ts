@@ -1,4 +1,4 @@
-import { AccessTokenProvider } from "./providers";
+import { AccessTokenProvider } from "./providers/interface";
 import { ClientConfiguration, ErrorResponse, Message } from "./types";
 import { WebClientError } from "./errors/WebClientError";
 

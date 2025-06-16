@@ -1,4 +1,4 @@
-import { AbstractTokenProvider } from ".";
+import { AbstractTokenProvider } from "./interface";
 import { RedisProviderConfiguration } from "../types";
 import { createClient } from "redis";
 
