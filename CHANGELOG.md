@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.1.2...naverworks-api-v1.1.3) (2025-06-16)
+
+
+### Bug Fixes
+
+* publish결과물에 dist만 포함되게 ([26188c7](https://github.com/siwol-media/naverworks-api/commit/26188c7159fc2bdba29e0867a8e98c0d2271b8a8))
+
 ## [1.1.2](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.1.1...naverworks-api-v1.1.2) (2025-06-16)
 
 
