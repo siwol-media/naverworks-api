@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.2.0...naverworks-api-v1.3.0) (2025-06-17)
+
+
+### Features
+
+* improve message action type ([faf93a4](https://github.com/siwol-media/naverworks-api/commit/faf93a4313931ab3260c2933e6519f3175901264))
+
 ## [1.2.0](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.1.4...naverworks-api-v1.2.0) (2025-06-17)
 
 
