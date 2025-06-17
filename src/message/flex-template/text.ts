@@ -1,4 +1,5 @@
-import type { Action, Color, Flex, HorizontalAlign, Margin, Offset, Size, VerticalAlign } from "./common";
+import type { Color, Flex, HorizontalAlign, Margin, Offset, Size, VerticalAlign } from "./common";
+import type { Action } from "./action";
 
 /**
  * 텍스트의 두께

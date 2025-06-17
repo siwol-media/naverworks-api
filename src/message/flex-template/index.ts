@@ -1,4 +1,4 @@
-import { Bubble } from "./bubble";
+import type { Bubble } from "./bubble";
 
 /**
  * @see https://developers.worksmobile.com/kr/docs/bot-send-flex
@@ -35,3 +35,4 @@ export * from "./icon";
 export * from "./image";
 export * from "./seperator";
 export * from "./text";
+export * from "./action";

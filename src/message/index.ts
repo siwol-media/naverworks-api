@@ -1,6 +1,6 @@
-import { FlexMessage } from "./flex-template";
-import { ImageMessage } from "./image";
-import { TextMessage } from "./text";
+import type { FlexMessage } from "./flex-template";
+import type { ImageMessage } from "./image";
+import type { TextMessage } from "./text";
 
 export interface Message {
   content: TextMessage | ImageMessage | FlexMessage;

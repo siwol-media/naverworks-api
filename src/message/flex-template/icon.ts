@@ -1,4 +1,4 @@
-import { Margin, Offset, Size } from "./common";
+import type { Margin, Offset, Size } from "./common";
 
 /**
  * 아이콘 컴포넌트의 인터페이스

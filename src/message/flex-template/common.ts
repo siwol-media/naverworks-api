@@ -1,13 +1,3 @@
-export interface Action {
-  action: {
-    type: "uri" | "message" | "postback";
-    label: string;
-    uri?: string;
-    text?: string;
-    data?: string;
-  }
-}
-
 export interface HorizontalAlign {
   align?: "start" | "center" | "end";
 };

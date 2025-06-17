@@ -1,10 +1,11 @@
-import { Action, Flex, Margin, Offset, SpacingScale } from "./common";
-import { ButtonComponent } from "./button";
-import { Filter } from "./filter";
-import { IconComponent } from "./icon";
-import { ImageComponent } from "./image";
-import { Separator } from "./seperator";
-import { TextComponent } from "./text";
+import type { Flex, Margin, Offset, SpacingScale } from "./common";
+import type { ButtonComponent } from "./button";
+import type { Filter } from "./filter";
+import type { IconComponent } from "./icon";
+import type { ImageComponent } from "./image";
+import type { Separator } from "./seperator";
+import type { TextComponent } from "./text";
+import type { Action } from "./action";
 
 export type FlexComponent = Box | ButtonComponent | ImageComponent | IconComponent | TextComponent | Separator | Filter;
 

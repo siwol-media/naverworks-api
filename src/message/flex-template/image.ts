@@ -1,4 +1,5 @@
-import { Action, HorizontalAlign, Margin, Offset, Size, VerticalAlign } from "./common";
+import type { HorizontalAlign, Margin, Offset, Size, VerticalAlign } from "./common";
+import type { Action } from "./action";
 
 /**
  * 이미지 컴포넌트의 인터페이스

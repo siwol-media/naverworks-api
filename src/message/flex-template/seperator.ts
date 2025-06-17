@@ -1,4 +1,4 @@
-import { Color, Margin } from "./common";
+import type { Color, Margin } from "./common";
 
 /**
  * 박스 컴포넌트 내에서 구분선을 표시하는 컴포넌트입니다.

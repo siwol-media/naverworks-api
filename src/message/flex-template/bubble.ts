@@ -1,5 +1,5 @@
-import { Box } from "./box";
-import { Action } from "./common";
+import type { Box } from "./box";
+import type { Action } from "./action";
 
 export interface Bubble extends Action {
   type: "bubble";
