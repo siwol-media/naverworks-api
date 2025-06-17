@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.1.4...naverworks-api-v1.2.0) (2025-06-17)
+
+
+### Features
+
+* add details to message type ([3354882](https://github.com/siwol-media/naverworks-api/commit/3354882200249977f9835d2db1012d59250c5f2f))
+
 ## [1.1.4](https://github.com/siwol-media/naverworks-api/compare/naverworks-api-v1.1.3...naverworks-api-v1.1.4) (2025-06-16)
 
 
