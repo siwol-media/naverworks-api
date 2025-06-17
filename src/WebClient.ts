@@ -1,6 +1,7 @@
 import { AccessTokenProvider } from "./providers/interface";
-import { ClientConfiguration, ErrorResponse, Message } from "./types";
+import { type ClientConfiguration, type ErrorResponse } from "./types";
 import { WebClientError } from "./errors/WebClientError";
+import { type Message } from "./message";
 
 /**
  * 네이버 웍스 API 클라이언트 구현체
